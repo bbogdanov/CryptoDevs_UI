@@ -8,10 +8,9 @@ export class FieldsRow extends React.Component {
         super(props);
 
         this.state = {
-            account: props.account || 'Main',
-            balance: props.balance || 0,
-            currency: props.currency || 'Ethereum',
-            rating: props.rating || '0.00002'
+            balance:  props.balance  || 0,
+            currency: props.currency || 'ETH',
+            rating:   props.rating   || '0.00002'
         }
     }
 
@@ -19,13 +18,8 @@ export class FieldsRow extends React.Component {
         switch (props.currency) {
             case 'ETH':
                 return 'currency-eth';
-                break;
             case 'BTC':
                 return 'bitcoin';
-                break;
-            case 'Test':
-                return null;
-                break;
             default:
                 return null;
         }
@@ -36,13 +30,13 @@ export class FieldsRow extends React.Component {
 
         const colStyles = {
             height: 100,
-            paddingLeft:20
+            textAlign: 'center',
         };
 
         const iconStyles = {
             paddingTop: 20,
-            paddingLeft:40,
-            fontSize: 20
+            textAlign: 'center',
+            fontSize: 30
         }
 
         const header = {
@@ -53,16 +47,14 @@ export class FieldsRow extends React.Component {
 
         const middle = {
             flex: 1,
+            textAlign: 'center',
             paddingTop: 15,
-            paddingLeft: 40
         }
 
         const footer = {
             flex: 1,
-            paddingLeft: 40
+            textAlign: 'center',
         }
-
-
 
         const icon = this.currencyIcon(this.props);
 
