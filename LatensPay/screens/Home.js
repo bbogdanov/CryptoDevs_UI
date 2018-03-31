@@ -7,8 +7,8 @@ export default ({navigation}) => (
         flex: 1,
         flexDirection: 'column',
     }}>
-        <FieldsRow />
+        <FieldsRow account={'ETH'} currency={'Ethereum'} rating={'409.37'} balance={20} />
 
-        <FieldsRow />
+        <FieldsRow account={'Bitcoin'} currency={'Bitcoin'} rating={'7100.01'} balance={10.123} />
     </View>
 );
