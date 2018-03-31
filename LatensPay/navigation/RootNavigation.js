@@ -4,7 +4,7 @@ import {
     SwitchNavigator
 } from "react-navigation";
 import React, { Component } from 'react';
-import FontAwesome from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
@@ -13,6 +13,10 @@ import Profile from "../screens/Profile";
 import Deposit from "../screens/Deposit";
 import Withdraw from "../screens/Withdraw";
 import Send from "../screens/Send";
+
+const iconsStyle = {
+  fontSize: 30,
+}
 
 export const SignedOut = StackNavigator({
     SignUp: {
@@ -30,51 +34,55 @@ export const SignedOut = StackNavigator({
 });
 
 export const SignedIn = TabNavigator({
-    Home: {
-        screen: Home,
-        navigationOptions: {
-            tabBarLabel: "Home",
-            //   tabBarIcon: ({ tintColor }) => (
-            //     <FontAwesome name="home" size={30} color={tintColor} />
-            //   )
-        }
+  Home: {
+    screen: Home
+  },
+  Deposit: {
+    screen: Deposit,
+  },
+  Withdraw: {
+    screen: Withdraw,
+  },
+  Send: {
+    screen: Send,
+  },
+  Profile: {
+    screen: Profile,
+  }
+}, {
+    tabBarOptions: {
+        showLabel: false,
+        showIcon: true
     },
-    Deposit: {
-        screen: Deposit,
-        navigationOptions: {
-            tabBarLabel: "Deposit",
-            //   tabBarIcon: ({ tintColor }) => (
-            //     <FontAwesome name="home" size={30} color={tintColor} />
-            //   )
+    navigationOptions: ({ navigation }) => ({
+        tabBarIcon: (props) => {
+          switch(navigation.state.routeName) {
+              case 'Home':
+                  return (
+                      <Icon name='home' style={iconsStyle} />
+                  );
+              case 'Deposit':
+                  return (
+                      <Icon name='currency-usd-off' style={iconsStyle} />
+                  );
+              case 'Withdraw':
+                  return (
+                      <Icon name='chart-line' style={iconsStyle} />
+                  );
+              case 'Send':
+                  return (
+                      <Icon name='cube-send' style={iconsStyle} />
+                  );
+              case 'Profile':
+                  return (
+                      <Icon name='account-card-details' style={iconsStyle} />
+                  );
+              default:
+                return null;
+          }
         }
-    },
-    Withdraw: {
-        screen: Withdraw,
-        navigationOptions: {
-            tabBarLabel: "Withdraw",
-            //   tabBarIcon: ({ tintColor }) => (
-            //     <FontAwesome name="home" size={30} color={tintColor} />
-            //   )
-        }
-    },
-    Send: {
-        screen: Send,
-        navigationOptions: {
-            tabBarLabel: "Send",
-            //   tabBarIcon: ({ tintColor }) => (
-            //     <FontAwesome name="home" size={30} color={tintColor} />
-            //   )
-        }
-    },
-    Profile: {
-        screen: Profile,
-        navigationOptions: {
-            tabBarLabel: "Profile",
-            //   tabBarIcon: ({ tintColor }) => (
-            //     <FontAwesome name="user" size={30} color={tintColor} />
-            //   )
-        }
-    }
+    }),
+
 });
 
 export const createRootNavigator = (signedIn = false) => {
