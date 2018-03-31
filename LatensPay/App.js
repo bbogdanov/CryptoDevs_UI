@@ -1,9 +1,9 @@
 import React from "react";
-import { SignedOut } from "./navigation/RootNavigation";
+import { SignedOut, SignedIn } from "./navigation/RootNavigation";
 
 export default class App extends React.Component {
   render() {
-    return <SignedOut />;
+    return <SignedIn />;
   }
 }
 
