@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import View from 'react-native';
+import {View} from 'react-native';
+import bitcoin from '../img/bitcoin-logo.png';
 import { Container, Label, Form, Item, Content, Button, Input, Text } from 'native-base';
 import { onSignIn } from "../services/Auth";
 export default ({ navigation }) => (
