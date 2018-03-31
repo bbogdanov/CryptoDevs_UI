@@ -1,8 +1,14 @@
-import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import React from 'react';
+import {Text, View} from 'react-native';
+import {FieldsRow} from "../components/FieldsRow";
 
-export default ({ navigation }) => (
-    <View style={{ paddingVertical: 20 }}>
-        <Text> Home </Text>
+export default ({navigation}) => (
+    <View style={{
+        flex: 1,
+        flexDirection: 'column',
+    }}>
+        <FieldsRow />
+
+        <FieldsRow />
     </View>
 );
