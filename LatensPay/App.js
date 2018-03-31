@@ -1,9 +1,29 @@
 import React from "react";
-import { SignedOut, SignedIn } from "./navigation/RootNavigation";
+import { SignedOut, SignedIn, createRootNavigator } from "./navigation/RootNavigation";
+import { isSignedIn } from "./services/Auth";
+import { AsyncStorage } from "react-native";
 
 export default class App extends React.Component {
-  render() {
-    return <SignedIn />;
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            signedIn: false
+        };
+    }
+
+    componentDidMount() {
+        this.auth().done();
+    }
+
+    async auth() {
+        signedIn = await isSignedIn();
+        this.setState({ signedIn });
+    }
+
+    render() {
+        const { signedIn } = this.state;
+        const Layout = createRootNavigator(signedIn);
+        return <Layout />;
+    }
 }
 

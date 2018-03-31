@@ -6,16 +6,17 @@ export const onSignIn = () => AsyncStorage.setItem(USER_KEY, "true");
 
 export const onSignOut = () => AsyncStorage.removeItem(USER_KEY);
 
-export const isSignedIn = () => {
-  return new Promise((resolve, reject) => {
-    AsyncStorage.getItem(USER_KEY)
-      .then(res => {
-        if (res !== null) {
-          resolve(true);
-        } else {
-          resolve(false);
+export const isSignedIn = async () => {
+    try {
+        const value = await AsyncStorage.getItem(USER_KEY);
+        if (value !== null) {
+            console.log(value);
+            return true;
         }
-      })
-      .catch(err => reject(err));
-  });
+        else {
+            return false;
+        }
+    } catch (error) {
+        return false;
+    }
 };
