@@ -17,10 +17,10 @@ export class FieldsRow extends React.Component {
 
     currencyIcon(props) {
         switch (props.currency) {
-            case 'Ethereum':
+            case 'ETH':
                 return 'currency-eth';
                 break;
-            case 'Bitcoin':
+            case 'BTC':
                 return 'bitcoin';
                 break;
             case 'Test':
@@ -35,14 +35,34 @@ export class FieldsRow extends React.Component {
         const currency = 'USD';
 
         const colStyles = {
-            height: 100
+            height: 100,
+            paddingLeft:20
         };
 
-        const fieldStyles = {
+        const iconStyles = {
+            paddingTop: 20,
+            paddingLeft:40,
+            fontSize: 20
+        }
+
+        const header = {
             flex: 1,
-            paddingTop: 45,
-            textAlign: 'center',
+            paddingTop: 15,
+            fontWeight: 'bold'
         };
+
+        const middle = {
+            flex: 1,
+            paddingTop: 15,
+            paddingLeft: 40
+        }
+
+        const footer = {
+            flex: 1,
+            paddingLeft: 40
+        }
+
+
 
         const icon = this.currencyIcon(this.props);
 
@@ -50,26 +70,26 @@ export class FieldsRow extends React.Component {
             <Content>
                 <List>
                     <ListItem style={{flex: 1, flexDirection: 'row'}}>
-                        <Icon name={icon} style={{fontSize: 20}}></Icon>
+                        <H3 style={header}> {this.state.currency} </H3>
                         <Text style={{flex: 1, textAlign: 'right'}}> {(Number(this.state.rating).toString().slice(0, 7))} &#036; </Text>
                     </ListItem>
                 </List>
 
                 <Grid>
                     <Col style={colStyles}>
-                        <H3 style={fieldStyles}> {this.state.currency} </H3>
+                        <Icon name={icon} style={iconStyles}></Icon>
                     </Col>
                     <Col style={colStyles}>
-                        <H3 style={fieldStyles}> {this.state.balance} </H3>
+                        <H3 style={middle}> {this.state.balance} </H3>
                     </Col>
                 </Grid>
 
                 <Grid>
                     <Col style={colStyles}>
-                        <H3 style={fieldStyles}> {currency} </H3>
+                        <H3 style={footer}> {currency} </H3>
                     </Col>
                     <Col style={colStyles}>
-                        <H3 style={fieldStyles}> {(this.state.balance * Number(this.state.rating)).toString().slice(0, 7)} &#036; </H3>
+                        <H3 style={footer}> {(this.state.balance * Number(this.state.rating)).toString().slice(0, 7)} &#036; </H3>
                     </Col>
                 </Grid>
             </Content>

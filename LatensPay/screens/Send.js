@@ -70,7 +70,7 @@ export default class Send extends Component {
                 <Header>
                     <Body>
                         <Title>
-                            Send cash
+                            Transfer
                         </Title>
                     </Body>
                 </Header>

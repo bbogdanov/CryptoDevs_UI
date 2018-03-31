@@ -55,7 +55,7 @@ Profile: {
       showLabel: false,
       showIcon: true,
       style: {
-        backgroundColor: '#1b1b84',
+        backgroundColor: '#4458ba',
       }
   },
   navigationOptions: ({ navigation }) => ({
