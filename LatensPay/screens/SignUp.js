@@ -1,23 +1,57 @@
 import React, { Component } from 'react';
 import { Container, Label, Form, Item, Content, Button, Input, Text } from 'native-base';
+import { postCall } from '../services/Http';
 
 
-export default ({ navigation }) => (
-    <Container>
-        <Content>
-            <Form>
-                <Item>
-                    <Input placeholder="Username" />
-                </Item>
-                <Item last>
-                    <Input placeholder="Password" />
-                </Item>
-                <Item last>
-                    <Input placeholder="Email" />
-                </Item>
-                <Button style={{margin:10}} onPress={() => navigation.navigate("SignUp")} primary rounded block><Text> Sign Up</Text></Button>
-                <Button style={{margin:10}} onPress={() => navigation.navigate("SignIn")} success rounded block><Text> Sign In</Text></Button>
-            </Form>
-        </Content>
-    </Container>
-);
+export default class SignUp extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            username:'',
+            password:'',
+            email: ''
+        }
+    }
+
+    handleUsername(username){
+        this.setState({username});
+    }
+
+    handlePassword(password){
+        this.setState({password});
+    }
+
+    handleEmail(email){
+        this.setState({email});
+    }
+
+    render() {
+        return (
+            <Container>
+                <Content>
+                    <Form>
+                        <Item>
+                            <Input onChangeText = {this.handleUsername.bind(this)} placeholder="Username" />
+                        </Item>
+                        <Item>
+                            <Input password onChangeText = {this.handlePassword.bind(this)}  placeholder="Password" />
+                        </Item>
+                        <Item>
+                            <Input onChangeText = {this.handleEmail.bind(this)}  placeholder="Email" />
+                        </Item>
+                        <Button style={{ margin: 10 }} onPress={async () => {
+                            let reponse = await postCall('users/create', {
+                               'user':{'username':this.state.username, 'password':this.state.password, 'email': this.state.email }
+                            });
+                            this.props.navigation.navigate("SignIn");
+                        }}
+                            primary rounded block>
+                            <Text> Sign Up</Text></Button>
+                        <Button style={{ margin: 10 }} onPress={() => {this.props.navigation.navigate("SignIn") }} success rounded block><Text> Sign In</Text></Button>
+                    </Form>
+                </Content>
+            </Container>
+        )
+    }
+
+}
