@@ -30,7 +30,7 @@ export default class SignIn extends Component {
                             <Input onChangeText={this.handleEmail.bind(this)} placeholder="Email" />
                         </Item>
                         <Item>
-                            <Input password onChangeText={this.handlePassword.bind(this)} placeholder="Password" />
+                            <Input secureTextEntry={true} onChangeText={this.handlePassword.bind(this)} placeholder="Password" />
                         </Item>
                         <Button style={{ margin: 10 }} onPress={() => {
                             postCall('user_token', {
@@ -38,10 +38,15 @@ export default class SignIn extends Component {
                             })
                                 .then(
                                     (data) => {
-                                        onSignIn(data.jwt);
-                                        this.props.navigation.navigate("SignedIn");
+                                        if(data.jwt){
+                                            onSignIn(data.jwt);
+                                            this.props.navigation.navigate("SignedIn");
+                                        }
+                                        else{
+                                            alert('Invalid username or password');
+                                        }
                                     })
-                                .catch(reason => console.log(reason.message));
+                                .catch(reason => alert(reason.message));
                         }}
                             primary rounded block>
                             <Text> Login</Text></Button>

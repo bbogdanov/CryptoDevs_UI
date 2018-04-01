@@ -33,7 +33,7 @@ export default class SignUp extends Component {
                             <Input onChangeText = {this.handleUsername.bind(this)} placeholder="Username" />
                         </Item>
                         <Item>
-                            <Input password onChangeText = {this.handlePassword.bind(this)}  placeholder="Password" />
+                            <Input secureTextEntry={true} onChangeText = {this.handlePassword.bind(this)}  placeholder="Password" />
                         </Item>
                         <Item>
                             <Input onChangeText = {this.handleEmail.bind(this)}  placeholder="Email" />
