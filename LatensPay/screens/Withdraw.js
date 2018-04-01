@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Modal } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Body, Title, Button, Text, Picker } from 'native-base';
 import { validateAddress, validateAmount} from './../helper/Validator';
+import { postWithdraw } from './../services/Api';
 
 export default class Withdraw extends Component {
     
@@ -12,7 +13,9 @@ export default class Withdraw extends Component {
             amount: 0,
             type: "ETH",
             modalVisible: true,
-            errors: []
+            errors: [],
+
+            success: false
         }
         this.submit = this.submit.bind(this);
         this.validateAddress = this.validateAddress.bind(this);
@@ -54,14 +57,32 @@ export default class Withdraw extends Component {
     }
 
     submit() {
-        this.clearErrors();
-        this.validateAddress();
-        this.validateAmount();
+        this.setState({ 
+            errors: this.state.errors.splice(0, this.state.errors.length),
+            success: false
+        }, () => {
+            this.validateEmail();
+            this.validateAmount();
+            if(!this.state.errors.length) {
+                let body = this.buildRequestBody()
+                postTransaction(body)
+                    .then((err, response) => {
+                        if(err) {
+                            this.addError(err.msg);
+                        } else {
+                            this.setState({ success: true })
+                        }
+                    });
+            }
+            });
     };
 
-    clearErrors() {
-        var errors = this.state.errors.splice(0, this.state.errors.length);
-        this.setState({errors: errors});
+    buildRequestBody() {
+        return {
+            address: this.state.address,
+            currency_code: this.state.type,
+            amount: this.state.amount
+        }
     }
 
     render() {
@@ -81,6 +102,9 @@ export default class Withdraw extends Component {
                                 <Text key={index} style={styles.error}>{e}</Text>
                             )
                         })
+                    }
+                    {
+                        this.state.success ? <Text style={styles.success}>Withdraw was successfull</Text> : <Text></Text>
                     }
                     <Form style={styles.form}>
                         <Item>

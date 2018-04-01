@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Modal } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Body, Title, Button, Text, Picker } from 'native-base';
 import { validateEmail, validateAmount} from './../helper/Validator';
+import { postTransaction } from './../services/Api';
 
 export default class Send extends Component {
     
@@ -12,13 +13,13 @@ export default class Send extends Component {
             email: '',
             ammount: 0,
             modalVisible: true,
-            errors: []
+            errors: [],
+            success: false
         };
         this.submit = this.submit.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
         this.validateAmount = this.validateAmount.bind(this);
         this.addError = this.addError.bind(this);
-        this.clearErrors = this.clearErrors.bind(this);
     };
 
     validateEmail() {
@@ -54,14 +55,36 @@ export default class Send extends Component {
     }
 
     submit() {
-        this.clearErrors();
-        this.validateEmail();
-        this.validateAmount();
+        this.setState({ 
+            errors: this.state.errors.splice(0, this.state.errors.length),
+            success: false
+        }, () => {
+            //this.validateEmail();
+            this.validateAmount();
+            if(!this.state.errors.length) {
+                let body = this.buildRequestBody()
+                postTransaction(body)
+                    .then((err, response) => {
+                        if(err) {
+                            console.log(err)
+                            alert('error')
+                            
+                            this.addError(err.msg);
+                        } else {
+                            alert('success')
+                            this.setState({ success: true })
+                        }
+                    });
+            }
+            });
     };
 
-    clearErrors() {
-        var errors = this.state.errors.splice(0, this.state.errors.length);
-        this.setState({errors: errors});
+    buildRequestBody() {
+        return {
+            email: this.state.email,
+            currency_code: this.state.type,
+            amount: this.state.amount
+        }
     }
 
     render() {
@@ -81,6 +104,9 @@ export default class Send extends Component {
                                 <Text key={index} style={styles.error}>{e}</Text>
                             )
                         })
+                    }
+                    {
+                        this.state.success ? <Text style={styles.success}>Transfer was successfull</Text> : <Text></Text>
                     }
                     <Form style={styles.form}>
                         <Item last>
@@ -137,6 +163,12 @@ const styles = StyleSheet.create({
     },
     error: {
         backgroundColor: "#EFDFDF",
+        padding: 10,
+        margin: 10,
+        borderRadius: 10
+    },
+    success: {
+        backgroundColor: "#D9ECDC",
         padding: 10,
         margin: 10,
         borderRadius: 10
