@@ -32,7 +32,7 @@ export const validateAddress = (address) => {
         return "Missing address.";
     }
     else if(address.length < MIN_ACCOUNT_LENGTH ||
-        address.length > MAX_ACCOUNT_LENNGTH) {
+        address.length > MAX_ACCOUNT_LENGTH) {
         return "Invalid address.";
     }
 }

@@ -1,14 +1,27 @@
 import React, {Component} from 'react';
 import { Container, Header, Content, Body, Title, Item, Input, Label } from 'native-base';
+import { getUserDeposit } from './../services/Api'
 
 export default class Deposit extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            btcAddress: '13493841934819414',
-            ethAddress: '13493841934819414'
+            btcAddress: '',
+            ethAddress: ''
         };
+
+        this.loadData();
+    }
+
+    loadData = () => {
+        getUserDeposit()
+            .then(response => {
+                this.setState({
+                    btcAddress: response.BTC,
+                    ethAddress: response.ETH
+                });
+            });
     }
 
     render() {

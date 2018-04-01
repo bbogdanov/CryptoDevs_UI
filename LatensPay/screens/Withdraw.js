@@ -14,14 +14,12 @@ export default class Withdraw extends Component {
             type: "ETH",
             modalVisible: true,
             errors: [],
-
             success: false
         }
         this.submit = this.submit.bind(this);
         this.validateAddress = this.validateAddress.bind(this);
         this.validateAmount = this.validateAmount.bind(this);
         this.addError = this.addError.bind(this);
-        this.clearErrors = this.clearErrors.bind(this);
     };
 
     validateAddress() {
@@ -58,19 +56,19 @@ export default class Withdraw extends Component {
 
     submit() {
         this.setState({ 
-            errors: this.state.errors.splice(0, this.state.errors.length),
+            errors: [],
             success: false
         }, () => {
-            this.validateEmail();
+            this.validateAddress();
             this.validateAmount();
             if(!this.state.errors.length) {
                 let body = this.buildRequestBody()
-                postTransaction(body)
-                    .then((err, response) => {
-                        if(err) {
-                            this.addError(err.msg);
-                        } else {
+                postWithdraw(body)
+                    .then((response) => {
+                        if(response.status == 200) {
                             this.setState({ success: true })
+                        } else {
+                            this.addError(err.msg);
                         }
                     });
             }
@@ -161,6 +159,12 @@ const styles = StyleSheet.create({
     },
     error: {
         backgroundColor: "#EFDFDF",
+        padding: 10,
+        margin: 10,
+        borderRadius: 10
+    },
+    success: {
+        backgroundColor: "#D9ECDC",
         padding: 10,
         margin: 10,
         borderRadius: 10
