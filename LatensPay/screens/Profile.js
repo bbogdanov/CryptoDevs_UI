@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import View from 'react-native';
-import { Container, Label, Form, Item, Content, Button, Input, Text, Thumbnail, Grid } from 'native-base';
+import { Container, Content, Button, Text, Thumbnail, Grid } from 'native-base';
 import { onSignOut } from "../services/Auth";
 import { getUserData } from './../services/Api';
 import test from './../img/user.png';
@@ -15,7 +14,7 @@ export default class Profile extends Component {
         }
         this.loadData();
     }
-    
+
     loadData = () => {
         getUserData()
             .then(response => {
@@ -55,7 +54,8 @@ const styles = {
         paddingTop:50
     },
     image: {
-        witdh: 150,
+        marginLeft: 110,
+        width: 150,
         height: 150,
         alignSelf: 'center'
     }

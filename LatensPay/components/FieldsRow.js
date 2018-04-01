@@ -8,10 +8,9 @@ export class FieldsRow extends React.Component {
         super(props);
 
         this.state = {
-            account: props.account || 'Main',
-            balance: props.balance || 0,
-            currency: props.currency || 'Ethereum',
-            rating: props.rating || '0.00002'
+            balance:  props.balance  || 0,
+            currency: props.currency || 'ETH',
+            rating:   props.rating   || '0.00002'
         }
     }
 
@@ -19,13 +18,8 @@ export class FieldsRow extends React.Component {
         switch (props.currency) {
             case 'ETH':
                 return 'currency-eth';
-                break;
             case 'BTC':
                 return 'bitcoin';
-                break;
-            case 'Test':
-                return null;
-                break;
             default:
                 return null;
         }
@@ -36,13 +30,12 @@ export class FieldsRow extends React.Component {
 
         const colStyles = {
             height: 100,
-            paddingLeft:20
         };
 
         const iconStyles = {
             paddingTop: 20,
-            paddingLeft:40,
-            fontSize: 20
+            textAlign: 'center',
+            fontSize: 30
         }
 
         const header = {
@@ -53,16 +46,14 @@ export class FieldsRow extends React.Component {
 
         const middle = {
             flex: 1,
+            textAlign: 'center',
             paddingTop: 15,
-            paddingLeft: 40
         }
 
         const footer = {
             flex: 1,
-            paddingLeft: 40
+            textAlign: 'center',
         }
-
-
 
         const icon = this.currencyIcon(this.props);
 
@@ -70,8 +61,8 @@ export class FieldsRow extends React.Component {
             <Content>
                 <List>
                     <ListItem style={{flex: 1, flexDirection: 'row'}}>
-                        <H3 style={header}> {this.state.currency} </H3>
-                        <Text style={{flex: 1, textAlign: 'right'}}> {(Number(this.state.rating).toString().slice(0, 7))} &#036; </Text>
+                        <H3 style={header}> {this.props.currency} </H3>
+                        <Text style={{flex: 1, textAlign: 'right'}}> {(Number(this.props.rating).toString().slice(0, 7))} &#036; </Text>
                     </ListItem>
                 </List>
 
@@ -80,7 +71,7 @@ export class FieldsRow extends React.Component {
                         <Icon name={icon} style={iconStyles}></Icon>
                     </Col>
                     <Col style={colStyles}>
-                        <H3 style={middle}> {this.state.balance} </H3>
+                        <H3 style={middle}> {this.props.balance} </H3>
                     </Col>
                 </Grid>
 
@@ -89,7 +80,7 @@ export class FieldsRow extends React.Component {
                         <H3 style={footer}> {currency} </H3>
                     </Col>
                     <Col style={colStyles}>
-                        <H3 style={footer}> {(this.state.balance * Number(this.state.rating)).toString().slice(0, 7)} &#036; </H3>
+                        <H3 style={footer}> {(this.props.balance * Number(this.props.rating)).toString().slice(0, 7)} &#036; </H3>
                     </Col>
                 </Grid>
             </Content>
