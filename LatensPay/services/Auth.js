@@ -10,7 +10,6 @@ export const isSignedIn = async () => {
     try {
         const value = await AsyncStorage.getItem(USER_KEY);
         if (value !== null) {
-            console.log(value);
             return true;
         }
         else {
