@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Item, Content, Button, Input, Text } from 'native-base';
+import { Container, Label, Form, Item, Content, Button, Input, Text } from 'native-base';
 import { postCall } from '../services/Http';
 
 export default class SignUp extends Component {
