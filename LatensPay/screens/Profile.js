@@ -11,7 +11,7 @@ export default class Profile extends Component {
                     <Thumbnail large source={{uri: 'img/user.png'}} />
                     <Text style={styles.text}>Username: emakkaa@gmail.com</Text>
                     <Text style={styles.text}>Email: emakkaa@gmail.com</Text>
-                    <Button style={{margin:10}}  onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))} block rounded success><Text> Logout</Text></Button>
+                    <Button style={{margin:10}}  onPress={() => onSignOut().then(() => this.props.navigation.navigate("SignedOut"))} block rounded success><Text> Logout</Text></Button>
                 </Content>
             </Container>
         )

@@ -7,7 +7,6 @@ export default class SignUp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            username:'',
             password:'',
             email: ''
         }
@@ -39,10 +38,12 @@ export default class SignUp extends Component {
                         <Item>
                             <Input onChangeText = {this.handleEmail.bind(this)}  placeholder="Email" />
                         </Item>
-                        <Button style={{ margin: 10 }} onPress={async () => {
-                            let reponse = await postCall('users/create', {
+                        <Button style={{ margin: 10 }} onPress={() => {
+                            postCall('users/create', {
                                'user':{'username':this.state.username, 'password':this.state.password, 'email': this.state.email }
-                            });
+                            })
+                            .then(data => {console.log(data.status)})
+                            .catch(reason => console.log(reason.message));
                             this.props.navigation.navigate("SignIn");
                         }}
                             primary rounded block>
