@@ -2,6 +2,7 @@ import React from 'react';
 import {FieldsRow} from "../components/FieldsRow";
 import {Body, Container, Content, Header, Title} from 'native-base';
 import {API_URL, CONTENT_TYPE, getCall} from "../services/Http";
+import {navigationChangedObservable} from "../navigation/RootNavigation";
 
 export const ETH = 'ETH';
 export const BTC = 'BTC';
@@ -24,6 +25,17 @@ export default class Home extends React.Component {
             this.setState({
                 ETHRating: this.getCurrencyRating(data, ETH),
                 BTCRating: this.getCurrencyRating(data, BTC),
+            })
+        })
+
+        navigationChangedObservable.subscribe(() => {
+            this.getBalance();
+
+            this.getRating().then((data) => {
+                this.setState({
+                    ETHRating: this.getCurrencyRating(data, ETH),
+                    BTCRating: this.getCurrencyRating(data, BTC),
+                })
             })
         })
     }
