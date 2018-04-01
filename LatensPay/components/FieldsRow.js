@@ -30,7 +30,6 @@ export class FieldsRow extends React.Component {
 
         const colStyles = {
             height: 100,
-            textAlign: 'center',
         };
 
         const iconStyles = {
