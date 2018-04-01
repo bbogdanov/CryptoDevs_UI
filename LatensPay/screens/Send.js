@@ -11,7 +11,7 @@ export default class Send extends Component {
         this.state = {
             type: "ETH",
             email: '',
-            ammount: 0,
+            amount: 0,
             modalVisible: true,
             errors: [],
             success: false
@@ -56,23 +56,21 @@ export default class Send extends Component {
 
     submit() {
         this.setState({ 
-            errors: this.state.errors.splice(0, this.state.errors.length),
+            errors: [],
             success: false
         }, () => {
-            //this.validateEmail();
+            this.validateEmail();
             this.validateAmount();
             if(!this.state.errors.length) {
                 let body = this.buildRequestBody()
                 postTransaction(body)
-                    .then((err, response) => {
-                        if(err) {
-                            console.log(err)
-                            alert('error')
-                            
-                            this.addError(err.msg);
+                    .then((response) => {
+                        if(response.status == 200) {
+                            this.setState({ 
+                                success: true
+                            })
                         } else {
-                            alert('success')
-                            this.setState({ success: true })
+                            this.addError(err.msg);
                         }
                     });
             }
