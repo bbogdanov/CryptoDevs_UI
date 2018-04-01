@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import {Button, Container, Content, Form, Input, Item, Text} from 'native-base';
 import {getCall, postCall} from '../services/Http';
 import {onSignIn} from "../services/Auth";
-import {AsyncStorage} from "react-native";
-import Home from "./Home";
-
 
 export default class SignIn extends Component {
     constructor(props) {
